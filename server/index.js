@@ -5,6 +5,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 connectToMongo();
 
+//apply middleware
+app.use(express.json());
+
 app.get("/",(req,res) => {
     res.send("api is running");
 });
