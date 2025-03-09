@@ -8,6 +8,10 @@ connectToMongo();
 //apply middleware
 app.use(express.json());
 
+import cors from 'cors';
+
+app.use(cors()); // Allow all origins
+
 
 app.get("/",(req,res) => {
     res.send("api is running");
