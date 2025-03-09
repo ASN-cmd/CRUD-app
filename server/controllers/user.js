@@ -61,12 +61,32 @@ class userController
         }
 }
 
-    static updateuser = async (req,res) => {
-        const {id} = req.params;
+static updateuser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        if (!id) {
+            return res.status(400).json({ message: "Id not found!" });
+        }
+
+        const getUpdatedData = await userModel.findByIdAndUpdate(id, req.body, { new: true });
+
+        if (!getUpdatedData) {
+            return res.status(404).json({ message: "User not found!" });
+        }
+
+        return res.status(200).json({ message: "User updated successfully", data: getUpdatedData });
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error", error });
+    }
+};
+
+
+    static deleteuser = async (req, res) => {
+        const { id } = req.params;
         try{
             if(id){
-                const getUpdatedData = await userModel.findByIdAndUpdate(id, req.body);
-                return res.status(200).json(getUpdatedData)
+                const getDeletedData = await userModel.findByIdAndDelete(id);
+                return res.status(200).json(getDeletedData)
             }
             else{
                 return res.status(400).json("Id not found!");

@@ -8,6 +8,7 @@ connectToMongo();
 //apply middleware
 app.use(express.json());
 
+
 app.get("/",(req,res) => {
     res.send("api is running");
 });
