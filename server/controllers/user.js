@@ -44,6 +44,39 @@ class userController
             return res.status(400).json(error);
         }
     }
+
+    static getSingleUser = async (req,res) => {
+        const {id} = req.params;
+        try{
+            if(id){
+                const getSingleData = await userModel.findById(id);
+                return res.status(200).json(getSingleData)
+            }
+            else{
+                return res.status(400).json("Id not found!");
+            }
+        }
+        catch(error){
+            return res.status(400).json(error);
+        }
+}
+
+    static updateuser = async (req,res) => {
+        const {id} = req.params;
+        try{
+            if(id){
+                const getUpdatedData = await userModel.findByIdAndUpdate(id, req.body);
+                return res.status(200).json(getUpdatedData)
+            }
+            else{
+                return res.status(400).json("Id not found!");
+            }
+        }
+        catch(error){
+            return res.status(400).json(error);
+        }
+    }
+
 }
 
 export default userController;
